@@ -1,13 +1,18 @@
+import java.util.HashMap;
+import java.util.List;
+
 public class Student {
     private String Name;
     private String StudentID;
-    private String Department;   
-    private double GPA;
+    //private String Department;   
+    private List<Department>departments; 
+    //private double GPA;
+    private HashMap<Department, Double>GPA; 
 
-    public Student (String name, String StudentID, String Department, double GPA) {
+    public Student (String name, String StudentID, List<Department>departs, HashMap<Department, Double>GPA) {
         this.setName(name);
         this.setStudentID(StudentID);
-        this.setDepartment(Department);
+        this.setDepartment(departs); 
         this.setGPA(GPA); 
     }
     
@@ -23,17 +28,28 @@ public class Student {
     public String getStudentID() {
         return this.StudentID; 
     }
-    public void setDepartment (String department) {
-        this.Department = department; 
+    public void setDepartment (List<Department>departs) {
+        this.departments = departs; 
     }
-    public String getDepartment () {
-        return this.Department; 
+    public List<Department> getDepartment () {
+        return this.departments; 
     }
-    public void setGPA(double gpa) {
+    public void addDepartment(Department department) {
+        this.departments.add (department); 
+        this.GPA.put(department, (double) -1); 
+    }
+    public void setGPA(HashMap<Department, Double>gpa) {
         this.GPA = gpa; 
     }
-    public double getGPA () {
+    public void addGPA(Department department, double gpa){
+        if (!GPA.containsKey(department))this.addDepartment(department); 
+        GPA.put(department, gpa); 
+    }
+    public HashMap<Department, Double> getGPA() {
         return this.GPA; 
+    }
+    public double getGPA(Department department) {
+        return this.GPA.get(department); 
     }
     @Override
     public String toString () {
